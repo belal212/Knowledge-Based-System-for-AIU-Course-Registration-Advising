@@ -1,0 +1,49 @@
+Course Code,Course Name,Prerequisites,Co-requisites,Credit Hours,Semester Offered,Track,Level
+CSE014,Structured Programming,,,3,Fall,All,1
+PHY211,Physics II,,,3,Fall,All,1
+MAT111,Mathematics I ,,,3,Fall,All,1
+UC1,Univ Req1,,,2,Fall,All,1
+UC2,Univ Req2,,,2,Fall,All,1
+UE1,Univ Elect1,,,2,Fall,All,1
+CSE015,Object Oriented Programming,CSE014,,3,Spring,All,1
+MAT131,Probability & Statistics I,,,3,Spring,All,1
+CSE315,Discrete Mathematics,,,3,Spring,All,1
+MAT112,Mathematics II,MAT111,,3,Spring,All,1
+UC3,Univ Req3,,,2,Spring,All,1
+UE2,Univ Elect2,,,2,Spring,All,1
+CSE111,Data Structures,CSE015,,3,Fall,All,2
+CSE131,Logic Design ,,,3,Fall,All,2
+MAT231,Probability & Statistics II ,MAT131,,3,Fall,All,2
+AIE111,Artificial Intelligence,CSE015,,3,Fall,Artificial Intelligence Science,2
+MAT212,Linear Algebra,,,3,Fall,All,2
+UC4,Univ Req4,,,2,Fall,All,2
+CSE132,Computer Architecture & Organization,CSE131,,3,Spring,All,2
+CSE221,Database Systems,CSE111,,3,Spring,All,2
+CSE281,Image Processing,"CSE015,MAT212",,3,Spring,Artificial Intelligence Science,2
+MAT312,Differential Equations					,MAT112,,3,Spring,All,2
+AIE191,Field Training 1 in AI Science					,,,2,Spring,Artificial Intelligence Science,2
+AIE121,Machine Learning					,,,3,Spring,Artificial Intelligence Science,2
+CSE251,Software Engineering					,CSE015,,3,Fall,All,3
+AIE231,Neural Networks					,AIE121,,3,Fall,Artificial Intelligence Science,3
+AIE323,Data Mining					,AIE121,,3,Fall,Artificial Intelligence Science,3
+CSE261,Computer Networks					,CSE132,,3,Fall,All,3
+CSE233,Operating Systems					,CSE111,,3,Fall,All,3
+UC5,Univ Req5					,,,2,Fall,All,3
+CSE112,Design and Analysis of Algorithms					,CSE111,,4,Spring,All,3
+AIE292,Field Training 2 in AI Science					,AIE191,,2,Spring,Artificial Intelligence Science,3
+AIE213,Optimization Techniques					,MAT312,,3,Spring,Artificial Intelligence Science,3
+AIE212,Knowledge-Based Systems					,AIE111,,3,Spring,Artificial Intelligence Science,3
+AIE241,Natural Language Processing					,AIE121,,3,Spring,Artificial Intelligence Science,3
+E1,Tech ELECT 1					,,,3,Spring,All,3
+AIE322,Advanced Machine Learning					,AIE121,,3,Fall,Artificial Intelligence Science,4
+CSE363,Cloud Computing					,,,3,Fall,All,4
+AIE493,Graduation Project 1					,,,3,Fall,Artificial Intelligence Science,4
+AIE332,Deep Learning					,AIE231,,3,Fall,Artificial Intelligence Science,4
+UC6,Univ Req6					,,,2,Fall,All,4
+E2,Tech ELECT 2					,,,3,Fall,All,4
+AIE425,Intelligent Recommender Systems					,AIE323,,3,Spring,Artificial Intelligence Science,4
+AIE494,Graduation Project 2					,AIE493,,3,Spring,Artificial Intelligence Science,4
+AIE314,AI-Based Programming					,AIE212,,3,Spring,Artificial Intelligence Science,4
+E3,Tech ELECT 3					,,,3,Spring,All,4
+UC7,Univ Req7					,,,2,Spring,All,4
+UE3,Univ Elect3					,,,2,Spring,All,4
