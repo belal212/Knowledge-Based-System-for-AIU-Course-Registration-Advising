@@ -29,3 +29,23 @@ class CourseRecommendation(KnowledgeEngine):
     def high_cgpa(self):
         self.credit_limit = 18
         self.explanations.append("CGPA ≥ 3.0 → max 18 credits")
+
+    def prerequisites_met(self, prereq):
+        if not prereq or pd.isna(prereq):
+            return True
+
+        prereq_list = prereq.split(',')
+        for pr in prereq_list:
+            if pr.strip() not in self.passed:
+                return False
+        return True
+
+    def corequisites_met(self, coreq):
+        if not coreq or pd.isna(coreq):
+            return True
+
+        coreq_list = coreq.split(',')
+        for co in coreq_list:
+            if co.strip() not in self.passed:
+                return False
+        return True
