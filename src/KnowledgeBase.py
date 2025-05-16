@@ -2,10 +2,8 @@ import pandas as pd
 import json
 
 # 1. Load files
-_courses_df = pd.read_csv( r"C:\Users\Sab3awy\Knowledge-Based-System-for-AIU-Course-Registration-Advising\data\courses.csv"
-).fillna('')
-with open(r"C:\Users\Sab3awy\Knowledge-Based-System-for-AIU-Course-Registration-Advising\data\policies.json"
-) as f:
+_courses_df = pd.read_csv( r"../data/courses.csv").fillna('')
+with open(r"../data/policies.json") as f:
     _policies = json.load(f)
 
 def list_all_courses():
