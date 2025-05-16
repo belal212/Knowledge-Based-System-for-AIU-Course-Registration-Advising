@@ -6,34 +6,171 @@ from inference_engine import recommend_courses
 
 st.set_page_config(page_title="AIU Course Advisor", layout="wide")
 
+# Add custom CSS for styling buttons and hiding default Streamlit elements
+st.markdown("""
+<style>
+    /* Hide default Streamlit elements */
+    #MainMenu {visibility: hidden;}
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
+    
+    /* Custom button styling for a more appealing UI */
+    .stButton > button {
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Make streamlit containers nicer */
+    .stApp {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+      /* Improve header styling */
+    h1, h2, h3 {
+        color: #1E3A8A;
+    }
+      /* Panel styling for role selection */
+    .role-panel {
+        background-color: white;
+        border-radius: 25px;
+        /* padding: 15px 25px; */
+        /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+        margin: 80px auto 20px;
+        height: 2px;
+        text-align: center;
+    }
+      /* Role icons styling */
+    .role-icon {
+        font-size: 38px;
+        margin-bottom: 0;
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Container styling for centering content */
+    .center-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Initialize session state
 if 'admin_password' not in st.session_state:
     st.session_state.admin_password = "admin123"  # Demo password, change in production
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
+if 'role_selected' not in st.session_state:
+    st.session_state.role_selected = False
+if 'role' not in st.session_state:
+    st.session_state.role = None
+if 'selected_role_button' not in st.session_state:
+    st.session_state.selected_role_button = None
 
-# Authentication sidebar
-with st.sidebar:
-    if not st.session_state.authenticated:
-        st.title("Admin Login")
-        password = st.text_input("Password", type="password")
-        if st.button("Login"):
-            if password == st.session_state.admin_password:
-                st.session_state.authenticated = True
-                st.rerun()
-            else:
-                st.error("Incorrect password")
-    else:
-        st.title("Admin Panel")
-        if st.button("Logout"):
+# Function to toggle role selection
+def select_role(role):
+    st.session_state.selected_role_button = role
+
+# Role Selection Modal
+if not st.session_state.role_selected:
+    
+    # Create three columns for horizontal centering
+    left_col, center_col, right_col = st.columns([1, 3, 1])
+    
+    with center_col:
+        # Create a panel with rounded borders
+        with st.container():
+            # Apply the role-panel class for styling
+            st.markdown('<div class="role-panel">', unsafe_allow_html=True)
+            
+            # Panel title and content
+            st.markdown("<h1 style='text-align: center;'>Welcome to AIU Course Registration Advisor</h1>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; font-size: 18px;'>Please select your role to continue:</p>", unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+              # Create two columns for role selection buttons
+            role_col1, role_col2 = st.columns(2)
+            
+            with role_col1:
+                # Student option
+                st.markdown("<div class='center-content'><div class='role-icon'>👨‍🎓</div></div>", unsafe_allow_html=True)
+                student_button = st.button("Student", use_container_width=True, key="student_role")
+                if student_button:
+                    st.session_state.role = "Student"
+                    st.session_state.role_selected = True
+                    st.rerun()
+            
+            with role_col2:
+                # Instructor option
+                st.markdown("<div class='center-content'><div class='role-icon'>👨‍🏫</div></div>", unsafe_allow_html=True)
+                instructor_button = st.button("Instructor", use_container_width=True, key="instructor_role")
+                if instructor_button:
+                    st.session_state.selected_role_button = "Instructor"
+            
+            # Close the panel div
+            st.markdown('</div>', unsafe_allow_html=True)
+    
+    # If instructor role is selected, show password input
+    if st.session_state.selected_role_button == "Instructor":
+        left_col, center_col, right_col = st.columns([1, 3, 1])
+        with center_col:
+            # Create another panel for password input
+            st.markdown('<div class="role-panel">', unsafe_allow_html=True)
+            
+            st.markdown("<h3 style='text-align: center;'>Enter Admin Password</h3>", unsafe_allow_html=True)
+            password = st.text_input("Password:", type="password", key="instructor_password", label_visibility="collapsed")
+            login = st.button("Login", use_container_width=True)
+            
+            # Close the panel div
+            st.markdown('</div>', unsafe_allow_html=True)
+            
+            if login:
+                if password == st.session_state.admin_password:
+                    st.session_state.authenticated = True
+                    st.session_state.role = "Instructor"
+                    st.session_state.role_selected = True
+                    st.rerun()
+                else:
+                    st.error("Incorrect password")
+
+else:
+    # Create a header with logout button on left and role indicator on right
+    header_cols = st.columns([1, 10, 1])
+    
+    # Logout button in left column
+    with header_cols[0]:
+        if st.button("Logout", key="logout_button"):
             st.session_state.authenticated = False
+            st.session_state.role_selected = False
+            st.session_state.role = None
+            st.session_state.selected_role_button = None
             st.rerun()
+            
+    # Role indicator in right column
+    with header_cols[2]:
+        st.info(f"Role: {st.session_state.role}")
 
-# Create tabs for student and admin views
-tab1, tab2 = st.tabs(["Student Advisor", "Knowledge Base Editor"])
+# Only show the interface if a role is selected
 
-with tab1:
-    st.title("AIU Course Registration Advisor")
+if st.session_state.role_selected:
+    # Create tabs based on role
+    if st.session_state.role == "Instructor" and st.session_state.authenticated:
+        tab1, tab2 = st.tabs(["Student Advisor", "Knowledge Base Editor"])
+    else:
+        # Student role only sees Student Advisor tab
+        tab1 = st.tabs(["Student Advisor"])[0]
+
+    with tab1:
+        st.title("AIU Course Registration Advisor")
 
     # Load courses KB for student view
     courses = list_all_courses()
@@ -107,11 +244,9 @@ with tab1:
                         for note in explanations:
                             st.write(f"- {note}")
 
-with tab2:
-    st.title("Knowledge Base Editor")
-    if not st.session_state.authenticated:
-        st.warning("Please login as admin to access the Knowledge Base Editor")
-    else:
+if st.session_state.role == "Instructor" and st.session_state.authenticated:
+    with tab2:
+        st.title("Knowledge Base Editor")
         # Sub-tabs for different KB operations
         kb_tab1, kb_tab2, kb_tab3 = st.tabs(["List Courses", "Add Course", "Delete Course"])
         
