@@ -1,9 +1,16 @@
 import pandas as pd
 import json
+import os
+from pathlib import Path
 
 # 1. Load files
-_courses_df = pd.read_csv( r"../data/courses.csv").fillna('')
-with open(r"../data/policies.json") as f:
+# Get the absolute path to the data directory regardless of where the script is run from
+base_dir = Path(__file__).parent.parent
+courses_path = os.path.join(base_dir, "data", "courses.csv")
+policies_path = os.path.join(base_dir, "data", "policies.json")
+
+_courses_df = pd.read_csv(courses_path).fillna('')
+with open(policies_path) as f:
     _policies = json.load(f)
 
 def list_all_courses():
