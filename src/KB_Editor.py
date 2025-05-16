@@ -3,7 +3,7 @@ import pandas as pd
 import argparse
 import sys
 
-KB_PATH = r"C:\Users\Sab3awy\Knowledge-Based-System-for-AIU-Course-Registration-Advising\data\courses.csv"
+KB_PATH = r"../data/courses.csv"
 
 def load_kb():
     return pd.read_csv(KB_PATH, dtype=str).fillna('')
