@@ -49,7 +49,7 @@ pip install -r requirements.txt
 With everything set up, launch the app using:
 
 ```bash
-streamlit run file.py
+streamlit run App.py
 ```
 
 This will open a new tab in your browser where the Course Recommendation Advisor will be running.
