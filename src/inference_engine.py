@@ -206,7 +206,7 @@ if __name__ == "__main__":
         passed=['CSE014', 'MAT111'],
         failed=['UC1'],
         semester='Fall',
-        track='AI Science'
+        track='Ais'
     )
 
     print("Recommended Courses:")
